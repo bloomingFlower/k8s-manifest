@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: blog-frontend
-          image: blog-frontend:1.0.0
+          image: bloomingflower/blog-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 
