@@ -33,7 +33,10 @@ spec:
   ports:
     - name: http-blog
       port: 8080
-      targetPort: 8080
+      targetPort: 80
+    - name: https-blog
+      port: 443
+      targetPort: 443
   selector:
     app: blog-frontend
 
@@ -81,3 +84,4 @@ spec:
         host: blog-frontend.default.svc.cluster.local
         port:
           number: 8080
+          name: http-blog
