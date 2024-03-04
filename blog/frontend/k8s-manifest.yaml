@@ -32,7 +32,7 @@ metadata:
 spec:
   ports:
     - name: http-blog
-      port: 80
+      port: 8080
       targetPort: 8080
     - name: https-blog
       port: 443
