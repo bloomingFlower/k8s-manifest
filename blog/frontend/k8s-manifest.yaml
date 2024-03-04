@@ -21,6 +21,19 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-frontend
+  labels:
+    app: blog-frontend
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: blog-frontend
 
 ---
 apiVersion: networking.istio.io/v1alpha3
