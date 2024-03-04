@@ -83,4 +83,4 @@ spec:
     - destination:
         host: blog-frontend.default.svc.cluster.local
         port:
-          number: 80
+          number: 8080
