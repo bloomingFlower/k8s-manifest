@@ -33,10 +33,10 @@ spec:
   ports:
     - name: http-blog
       port: 8080
-      targetPort: 80
+      targetPort: 8080
     - name: https-blog
       port: 443
-      targetPort: 443
+      targetPort: 8443
   selector:
     app: blog-frontend
 
