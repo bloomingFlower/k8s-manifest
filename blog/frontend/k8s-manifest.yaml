@@ -47,16 +47,7 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 8443
-      name: https-blog
-      protocol: HTTPS
-    hosts:
-    - "yourrubber.duckdns.org"
-    tls:
-      mode: SIMPLE
-      credentialName: blog-tls
-  - port:
-      number: 8080
+      number: 80
       name: http-blog
       protocol: HTTP
     hosts:
