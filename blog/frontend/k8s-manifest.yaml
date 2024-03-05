@@ -64,7 +64,7 @@ spec:
   gateways:
   - blog-gateway
   http:
-    route:
+  - route:
     - destination:
         host: blog-frontend.default.svc.cluster.local
         port:
