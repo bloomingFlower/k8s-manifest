@@ -64,9 +64,6 @@ spec:
   gateways:
   - blog-gateway
   http:
-  - match:
-    - uri:
-        exact: /
     route:
     - destination:
         host: blog-frontend.default.svc.cluster.local
