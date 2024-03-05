@@ -47,7 +47,7 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 443
+      number: 8443
       name: https-blog
       protocol: HTTPS
     hosts:
@@ -56,7 +56,7 @@ spec:
       mode: SIMPLE
       credentialName: blog-tls
   - port:
-      number: 80
+      number: 8080
       name: http-blog
       protocol: HTTP
     hosts:
