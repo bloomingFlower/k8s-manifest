@@ -84,4 +84,3 @@ spec:
         host: blog-frontend.default.svc.cluster.local
         port:
           number: 8080
-          name: http-blog
