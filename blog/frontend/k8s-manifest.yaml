@@ -32,7 +32,7 @@ metadata:
 spec:
   ports:
     - name: http-blog
-      port: 80
+      port: 8080
       targetPort: 8080
   selector:
     app: blog-frontend
@@ -47,7 +47,7 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 80
+      number: 8080
       name: http-blog
       protocol: HTTP
     hosts:
