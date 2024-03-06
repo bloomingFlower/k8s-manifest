@@ -17,6 +17,9 @@ spec:
         - name: blog-backend
           image: bloomingflower/blog-backend:latest
           imagePullPolicy: Always
+          env:
+            - name: BASE_URL
+              value: "https://blog.yourrubber.duckdns.org"
           ports:
             - containerPort: 8008
 ---
