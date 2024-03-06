@@ -57,7 +57,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: blog-virtualservice
+  name: blog-frontend-virtualservice
 spec:
   hosts:
   - "blog.yourrubber.duckdns.org"
