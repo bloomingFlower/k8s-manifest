@@ -18,7 +18,7 @@ spec:
           image: bloomingflower/blog-backend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8008
 ---
 apiVersion: v1
 kind: Service
@@ -30,5 +30,5 @@ spec:
   ports:
     - name: http-blog
       port: 80
-      targetPort: 8080
+      targetPort: 8008
   type: ClusterIP
