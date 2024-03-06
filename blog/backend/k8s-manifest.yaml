@@ -28,7 +28,7 @@ spec:
   selector:
     app: blog-backend
   ports:
-    - name: http-blog
-      port: 80
+    - name: https-blog
+      port: 443
       targetPort: 8008
   type: ClusterIP
