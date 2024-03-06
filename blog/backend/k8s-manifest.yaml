@@ -43,7 +43,10 @@ spec:
   gateways:
     - blog-gateway
   http:
-    - route:
+    - match:
+        - uri:
+            prefix: "/api"
+      route:
         - destination:
             host: blog-backend.default.svc.cluster.local
             port:
