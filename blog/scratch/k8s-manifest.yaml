@@ -1,0 +1,53 @@
+# k8s-manifest.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-scratch
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: blog-scratch
+  template:
+    metadata:
+      labels:
+        app: blog-scratch
+    spec:
+      containers:
+        - name: blog-scratch
+          image: bloomingflower/blog-scratch:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 50051
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-scratch
+spec:
+  selector:
+    app: blog-scratch
+  ports:
+    - name: grpc-blog
+      port: 443
+      targetPort: 50051
+  type: ClusterIP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: blog-scratch-virtualservice
+spec:
+  hosts:
+    - "blog.yourrubber.duckdns.org"
+  gateways:
+    - blog-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/gapi"
+      route:
+        - destination:
+            host: blog-scratch.default.svc.cluster.local
+            port:
+              number: 443
