@@ -29,7 +29,7 @@ spec:
     app: blog-scratch
   ports:
     - name: grpc-blog
-      port: 443
+      port: 15021
       targetPort: 50051
   type: ClusterIP
 ---
@@ -50,4 +50,4 @@ spec:
         - destination:
             host: blog-scratch.default.svc.cluster.local
             port:
-              number: 443
+              number: 15021
