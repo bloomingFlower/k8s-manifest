@@ -44,11 +44,13 @@ spec:
     - blog-gateway
   http:
     - match:
+        - headers:
+            grpc-service:
+              exact: "api.ApiService"
+            grpc-method:
+              exact: "handlerGetPostsForUser"
         - uri:
             prefix: "/gapi"
-          grpc:
-            service: "api.ApiService"
-            method: "handlerGetPostsForUser"
       route:
         - destination:
             host: blog-scratch.default.svc.cluster.local
