@@ -46,6 +46,9 @@ spec:
     - match:
         - uri:
             prefix: "/gapi"
+          grpc:
+            service: "api.ApiService"
+            method: "handlerGetPostsForUser"
       route:
         - destination:
             host: blog-scratch.default.svc.cluster.local
