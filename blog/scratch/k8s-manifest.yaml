@@ -18,6 +18,7 @@ spec:
           image: bloomingflower/blog-scratch:latest
           imagePullPolicy: Always
           ports:
+            - name: grpc
             - containerPort: 50051
 ---
 apiVersion: v1
@@ -56,4 +57,5 @@ spec:
         - destination:
             host: blog-scratch.default.svc.cluster.local
             port:
+              name: grpc
               number: 15021
