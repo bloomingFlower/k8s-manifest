@@ -28,7 +28,8 @@ spec:
   selector:
     app: blog-scratch
   ports:
-    - name: grpc-blog
+    - name: grpc
+      protocol: TCP
       port: 15021
       targetPort: 50051
   type: ClusterIP
