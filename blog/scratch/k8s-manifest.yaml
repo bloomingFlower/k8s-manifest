@@ -18,7 +18,6 @@ spec:
           image: bloomingflower/blog-scratch:latest
           imagePullPolicy: Always
           ports:
-            - name: grpc
             - containerPort: 50051
 ---
 apiVersion: v1
