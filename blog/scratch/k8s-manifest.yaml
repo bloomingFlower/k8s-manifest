@@ -30,7 +30,7 @@ spec:
   ports:
     - name: grpc
       protocol: TCP
-      port: 443
+      port: 50031
       targetPort: 50051
   type: ClusterIP
 ---
@@ -57,4 +57,4 @@ spec:
             host: blog-scratch.default.svc.cluster.local
             port:
               name: grpc
-              number: 443
+              number: 50031
