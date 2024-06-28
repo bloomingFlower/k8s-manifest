@@ -51,7 +51,13 @@ spec:
       name: http-blog
       protocol: HTTP
     hosts:
-      - "blog.yourrubber.duckdns.org"
+    - "blog.yourrubber.duckdns.org"
+  - port:
+      number: 80
+      name: http2-blog
+      protocol: HTTP2
+    hosts:
+    - "blog.yourrubber.duckdns.org"
 
 ---
 apiVersion: networking.istio.io/v1alpha3
