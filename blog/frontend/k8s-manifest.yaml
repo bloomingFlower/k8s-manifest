@@ -53,7 +53,7 @@ spec:
     hosts:
     - "blog.yourrubber.duckdns.org"
   - port:
-      number: 80
+      number: 50031
       name: http2-blog
       protocol: HTTP2
     hosts:
