@@ -44,7 +44,11 @@ spec:
   gateways:
     - blog-gateway
   http:
-    - route:
+    - match:
+        - headers:
+            content-type:
+              regex: "application/grpc"
+      route:
         - destination:
             host: blog-scratch.default.svc.cluster.local
             port:
