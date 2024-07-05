@@ -38,26 +38,78 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: blog-scratch-virtualservice
-  namespace: default
 spec:
-  hosts:
-  - "blog.yourrubber.duckdns.org"
   gateways:
-  - blog-gateway
+    - blog-gateway
+  hosts:
+    - blog.yourrubber.duckdns.org
   http:
-  - match:
-    - uri:
-        prefix: "/grpc.reflection.v1.ServerReflection"
-    route:
-    - destination:
-        host: blog-scratch.default.svc.cluster.local
-        port:
-          number: 50031
-  - match:
-    - uri:
-        prefix: "/api.ApiService"
-    route:
-    - destination:
-        host: blog-scratch.default.svc.cluster.local
-        port:
-          number: 50031
+    - match:
+        - uri:
+            prefix: /grpc.reflection.v1.ServerReflection
+      route:
+        - destination:
+            host: blog-scratch.default.svc.cluster.local
+            port:
+              number: 50031
+      corsPolicy:
+        allowOrigins:
+        - exact: https://blog.yourrubber.duckdns.org
+        - exact: https://blog.yourrubber.duckdns.org:50031
+        allowMethods:
+        - POST
+        - GET
+        - OPTIONS
+        allowHeaders:
+        - grpc-timeout
+        - content-type
+        - keep-alive
+        - user-agent
+        - cache-control
+        - content-transfer-encoding
+        - custom-header-1
+        - x-accept-content-transfer-encoding
+        - x-accept-response-streaming
+        - x-user-agent
+        - x-grpc-web
+        maxAge: 1728s
+        exposeHeaders:
+        - custom-header-1
+        - grpc-status
+        - grpc-message
+        allowCredentials: true
+    - match:
+        - uri:
+            prefix: /api.ApiService
+      route:
+        - destination:
+            host: blog-scratch.default.svc.cluster.local
+            port:
+              number: 50031
+      corsPolicy:
+        allowOrigins:
+        - exact: https://blog.yourrubber.duckdns.org
+        - exact: https://blog.yourrubber.duckdns.org:50031
+        allowMethods:
+        - POST
+        - GET
+        - OPTIONS
+        allowHeaders:
+        - grpc-timeout
+        - content-type
+        - keep-alive
+        - user-agent
+        - cache-control
+        - content-transfer-encoding
+        - custom-header-1
+        - x-accept-content-transfer-encoding
+        - x-accept-response-streaming
+        - x-user-agent
+        - x-grpc-web
+        maxAge: 1728s
+        exposeHeaders:
+        - custom-header-1
+        - grpc-status
+        - grpc-message
+        allowCredentials: true
+                                  
