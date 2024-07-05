@@ -48,7 +48,7 @@ spec:
   http:
     - match:
         - uri:
-            prefix: "/api"
+            prefix: "/api/"
       route:
         - destination:
             host: blog-backend.default.svc.cluster.local
