@@ -38,18 +38,26 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: blog-scratch-virtualservice
+  namespace: default
 spec:
   hosts:
-    - "blog.yourrubber.duckdns.org"
+  - "blog.yourrubber.duckdns.org"
   gateways:
-    - blog-gateway
+  - blog-gateway
   http:
-    - match:
-        - headers:
-            content-type:
-              regex: "application/grpc"
-      route:
-        - destination:
-            host: blog-scratch.default.svc.cluster.local
-            port:
-              number: 50031
+  - match:
+    - uri:
+        prefix: "/grpc.reflection.v1.ServerReflection"
+    route:
+    - destination:
+        host: blog-scratch.default.svc.cluster.local
+        port:
+          number: 50031
+  - match:
+    - uri:
+        prefix: "/api.ApiService"
+    route:
+    - destination:
+        host: blog-scratch.default.svc.cluster.local
+        port:
+          number: 50031
