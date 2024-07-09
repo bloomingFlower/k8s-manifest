@@ -72,7 +72,6 @@ spec:
         - x-accept-response-streaming
         - x-user-agent
         - x-grpc-web
-        - application/grpc-web-text
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
@@ -107,7 +106,6 @@ spec:
         - x-accept-response-streaming
         - x-user-agent
         - x-grpc-web
-        - application/grpc-web-text
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
