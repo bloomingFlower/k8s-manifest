@@ -54,9 +54,8 @@ spec:
               number: 50031
       corsPolicy:
         allowOrigins:
-        - "*"
-        # - exact: https://blog.yourrubber.duckdns.org
-        # - exact: https://blog.yourrubber.duckdns.org:50031
+        - exact: https://blog.yourrubber.duckdns.org
+        - exact: https://blog.yourrubber.duckdns.org:50031
         allowMethods:
         - POST
         - GET
@@ -90,9 +89,8 @@ spec:
               number: 50031
       corsPolicy:
         allowOrigins:
-        - "*"
-        # - exact: https://blog.yourrubber.duckdns.org
-        # - exact: https://blog.yourrubber.duckdns.org:50031
+        - exact: https://blog.yourrubber.duckdns.org
+        - exact: https://blog.yourrubber.duckdns.org:50031
         allowMethods:
         - POST
         - GET
