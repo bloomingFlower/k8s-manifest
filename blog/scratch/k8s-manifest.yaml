@@ -54,8 +54,9 @@ spec:
               number: 50031
       corsPolicy:
         allowOrigins:
-        - exact: https://blog.yourrubber.duckdns.org
-        - exact: https://blog.yourrubber.duckdns.org:50031
+        - "*"
+        # - exact: https://blog.yourrubber.duckdns.org
+        # - exact: https://blog.yourrubber.duckdns.org:50031
         allowMethods:
         - POST
         - GET
@@ -72,6 +73,7 @@ spec:
         - x-accept-response-streaming
         - x-user-agent
         - x-grpc-web
+        - application/grpc-web-text
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
@@ -88,8 +90,9 @@ spec:
               number: 50031
       corsPolicy:
         allowOrigins:
-        - exact: https://blog.yourrubber.duckdns.org
-        - exact: https://blog.yourrubber.duckdns.org:50031
+        - "*"
+        # - exact: https://blog.yourrubber.duckdns.org
+        # - exact: https://blog.yourrubber.duckdns.org:50031
         allowMethods:
         - POST
         - GET
@@ -106,6 +109,7 @@ spec:
         - x-accept-response-streaming
         - x-user-agent
         - x-grpc-web
+        - application/grpc-web-text
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
