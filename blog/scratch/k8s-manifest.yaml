@@ -70,6 +70,15 @@ spec:
         - keep-alive
         - cache-control
         - x-user-agent
+        - set
+        - get
+        - has
+        - delete
+        - append
+        - foreach
+        - headersmap
+        - toheaders
+        - appendfromstring
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
@@ -102,6 +111,15 @@ spec:
         - keep-alive
         - cache-control
         - x-user-agent
+        - set
+        - get
+        - has
+        - delete
+        - append
+        - foreach
+        - headersmap
+        - toheaders
+        - appendfromstring
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
