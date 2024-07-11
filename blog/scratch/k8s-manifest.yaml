@@ -79,6 +79,7 @@ spec:
         - headersmap
         - toheaders
         - appendfromstring
+        - api_key
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
@@ -120,6 +121,7 @@ spec:
         - headersmap
         - toheaders
         - appendfromstring
+        - api_key
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
