@@ -60,18 +60,16 @@ spec:
         - POST
         - GET
         - OPTIONS
+        - PUT
+        - DELETE
         allowHeaders:
-        - grpc-timeout
-        - content-type
-        - keep-alive
-        - user-agent
-        - cache-control
-        - content-transfer-encoding
-        - custom-header-1
-        - x-accept-content-transfer-encoding
-        - x-accept-response-streaming
-        - x-user-agent
+        - Content-Type
+        - Authorization
         - x-grpc-web
+        - grpc-timeout
+        - keep-alive
+        - cache-control
+        - x-user-agent
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
@@ -94,18 +92,16 @@ spec:
         - POST
         - GET
         - OPTIONS
+        - PUT
+        - DELETE
         allowHeaders:
-        - grpc-timeout
-        - content-type
-        - keep-alive
-        - user-agent
-        - cache-control
-        - content-transfer-encoding
-        - custom-header-1
-        - x-accept-content-transfer-encoding
-        - x-accept-response-streaming
-        - x-user-agent
+        - Content-Type
+        - Authorization
         - x-grpc-web
+        - grpc-timeout
+        - keep-alive
+        - cache-control
+        - x-user-agent
         maxAge: 1728s
         exposeHeaders:
         - custom-header-1
