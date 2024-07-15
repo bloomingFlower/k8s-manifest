@@ -2,44 +2,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog-backend
+  name: blog-axum
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: blog-backend
+      app: blog-axum
   template:
     metadata:
       labels:
-        app: blog-backend
+        app: blog-axum
     spec:
       containers:
-        - name: blog-backend
-          image: bloomingflower/blog-backend:latest
+        - name: blog-axum
+          image: bloomingflower/blog-axum:latest
           imagePullPolicy: Always
-          env:
-            - name: BASE_URL
-              value: "https://blog.yourrubber.duckdns.org"
           ports:
-            - containerPort: 8008
+            - containerPort: 8001
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: blog-backend
+  name: blog-axum
 spec:
   selector:
-    app: blog-backend
+    app: blog-axum
   ports:
     - name: https-blog
       port: 443
-      targetPort: 8008
+      targetPort: 8001
   type: ClusterIP
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: blog-backend-virtualservice
+  name: blog-axum-virtualservice
 spec:
   hosts:
     - "blog.yourrubber.duckdns.org"
@@ -48,9 +45,9 @@ spec:
   http:
     - match:
         - uri:
-            prefix: "/api/v1/"
+            prefix: "/api/v2/"
       route:
         - destination:
-            host: blog-backend.default.svc.cluster.local
+            host: blog-axum.default.svc.cluster.local
             port:
               number: 443
