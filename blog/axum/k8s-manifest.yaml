@@ -14,7 +14,7 @@ spec:
         app: blog-axum
     spec:
       containers:
-        - name: blog-axum
+        - name: axum-backend
           image: bloomingflower/axum-backend:latest
           imagePullPolicy: Always
           ports:
