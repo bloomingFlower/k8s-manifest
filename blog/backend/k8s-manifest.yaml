@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: blog-backend
 spec:
-  replicas: 2
+  replicas: 1 # file download could be fail if we have multiple replicas. Need to fix it later (add file storage server)
   selector:
     matchLabels:
       app: blog-backend
