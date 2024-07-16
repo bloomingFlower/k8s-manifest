@@ -19,6 +19,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8001
+          envFrom:
+            - secretRef:
+                name: blog-axum-secret
 ---
 apiVersion: v1
 kind: Service
