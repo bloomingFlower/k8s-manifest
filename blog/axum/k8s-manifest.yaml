@@ -1,39 +1,79 @@
-# k8s-manifest.yaml
+# Web Server Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog-axum
+  name: blog-axum-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog-axum
+      app: blog-axum-web
   template:
     metadata:
       labels:
-        app: blog-axum
+        app: blog-axum-web
     spec:
       containers:
-        - name: axum-backend
-          image: bloomingflower/axum-backend:latest
+        - name: axum-backend-web
+          image: bloomingflower/axum-backend-web:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8001
+            - containerPort: 3000
           envFrom:
             - secretRef:
                 name: blog-axum-secret
 ---
+# SSE Server Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-axum-sse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-axum-sse
+  template:
+    metadata:
+      labels:
+        app: blog-axum-sse
+    spec:
+      containers:
+        - name: axum-backend-sse
+          image: bloomingflower/axum-backend-sse:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - secretRef:
+                name: blog-axum-secret
+---
+# Web Server Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: blog-axum
+  name: blog-axum-web
 spec:
   selector:
-    app: blog-axum
+    app: blog-axum-web
   ports:
     - name: https-blog
       port: 443
-      targetPort: 8001
+      targetPort: 3000
+  type: ClusterIP
+---
+# SSE Server Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-axum-sse
+spec:
+  selector:
+    app: blog-axum-sse
+  ports:
+    - name: https-sse
+      port: 443
+      targetPort: 3001
   type: ClusterIP
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -51,6 +91,14 @@ spec:
             prefix: "/api/v2/"
       route:
         - destination:
-            host: blog-axum.default.svc.cluster.local
+            host: blog-axum-web.default.svc.cluster.local
+            port:
+              number: 443
+    - match:
+        - uri:
+            prefix: "/sse/"
+      route:
+        - destination:
+            host: blog-axum-sse.default.svc.cluster.local
             port:
               number: 443
