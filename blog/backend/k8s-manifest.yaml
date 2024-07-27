@@ -22,6 +22,9 @@ spec:
               value: "https://blog.yourrubber.duckdns.org"
           ports:
             - containerPort: 8008
+          envFrom:
+            - secretRef:
+                name: blog-backend-secret
 ---
 apiVersion: v1
 kind: Service
