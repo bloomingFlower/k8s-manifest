@@ -96,7 +96,7 @@ spec:
               number: 443
     - match:
         - uri:
-            prefix: "/sse/"
+            prefix: "/sse"
       route:
         - destination:
             host: blog-axum-sse.default.svc.cluster.local
