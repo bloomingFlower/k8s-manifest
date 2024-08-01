@@ -43,7 +43,7 @@ spec:
           image: bloomingflower/axum-backend-sse:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3001
+            - containerPort: 4000
           envFrom:
             - secretRef:
                 name: blog-axum-secret
@@ -73,7 +73,7 @@ spec:
   ports:
     - name: https-sse
       port: 443
-      targetPort: 3001
+      targetPort: 4000
   type: ClusterIP
 ---
 apiVersion: networking.istio.io/v1alpha3
