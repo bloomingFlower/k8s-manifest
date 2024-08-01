@@ -22,6 +22,18 @@ spec:
           envFrom:
             - secretRef:
                 name: blog-axum-secret
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
 ---
 # SSE Server Deployment
 apiVersion: apps/v1
@@ -94,7 +106,11 @@ spec:
             host: blog-axum-web.default.svc.cluster.local
             port:
               number: 443
-      timeout: 21600s
+      timeout: 30s
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: connect-failure,refused-stream,unavailable,cancelled,retriable-status-codes
     - match:
         - uri:
             prefix: "/sse"
@@ -106,6 +122,23 @@ spec:
       timeout: 21600s
       retries:
         attempts: 0  # Disable retries for SSE connections
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: blog-axum-web-destinationrule
+spec:
+  host: blog-axum-web.default.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      http:
+        maxRequestsPerConnection: 10
+        http1MaxPendingRequests: 1
+        maxRetries: 3
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
