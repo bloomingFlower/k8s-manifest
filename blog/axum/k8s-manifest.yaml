@@ -94,6 +94,7 @@ spec:
             host: blog-axum-web.default.svc.cluster.local
             port:
               number: 443
+      timeout: 21600s
     - match:
         - uri:
             prefix: "/sse"
@@ -102,3 +103,18 @@ spec:
             host: blog-axum-sse.default.svc.cluster.local
             port:
               number: 443
+      timeout: 21600s
+      retries:
+        attempts: 0  # Disable retries for SSE connections
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: blog-axum-destinationrule
+spec:
+  host: blog-axum-sse.default.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      http:
+        maxRequestsPerConnection: 1
+        idleTimeout: 1h
