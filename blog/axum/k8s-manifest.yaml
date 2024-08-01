@@ -22,18 +22,6 @@ spec:
           envFrom:
             - secretRef:
                 name: blog-axum-secret
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 3000
-            initialDelaySeconds: 15
-            periodSeconds: 10
 ---
 # SSE Server Deployment
 apiVersion: apps/v1
