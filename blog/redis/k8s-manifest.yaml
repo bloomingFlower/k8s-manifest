@@ -88,11 +88,9 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: redis-secret
-              key: redis-password
+        envFrom:
+        - secretRef:
+            name: redis-secret
         volumeMounts:
         - name: conf
           mountPath: /conf
