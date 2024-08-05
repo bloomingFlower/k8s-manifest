@@ -13,10 +13,9 @@ data:
     exec "$@"
   redis.conf: |+
     cluster-enabled yes
-    cluster-require-full-coverage no
-    cluster-node-timeout 15000
     cluster-config-file /data/nodes.conf
-    cluster-migration-barrier 1
+    cluster-node-timeout 5000
+    appendonly yes
     protected-mode no
     maxmemory 512mb
     maxmemory-policy allkeys-lru
@@ -27,7 +26,7 @@ kind: StatefulSet
 metadata:
   name: blog-redis-cluster
 spec:
-  serviceName: "blog-redis"
+  serviceName: "blog-redis-cluster"
   replicas: 2
   selector:
     matchLabels:
@@ -57,21 +56,14 @@ spec:
         - -c
         - |
           echo "Waiting for redis nodes to be ready..."
-          until redis-cli -h blog-redis-cluster-0.blog-redis-cluster -a $REDIS_PASSWORD ping; do sleep 1; done
-          until redis-cli -h blog-redis-cluster-1.blog-redis-cluster -a $REDIS_PASSWORD ping; do sleep 1; done
+          until redis-cli -h blog-redis-cluster-0.blog-redis-cluster -p 6379 ping; do sleep 1; done
+          until redis-cli -h blog-redis-cluster-1.blog-redis-cluster -p 6379 ping; do sleep 1; done
           echo "Creating Redis cluster..."
           redis-cli --cluster create \
             blog-redis-cluster-0.blog-redis-cluster:6379 \
             blog-redis-cluster-1.blog-redis-cluster:6379 \
             --cluster-replicas 0 \
-            --cluster-yes \
-            -a $REDIS_PASSWORD
-        env:
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: redis-secret
-              key: redis-password
+            --cluster-yes
       containers:
       - name: redis
         image: redis:latest
@@ -87,7 +79,8 @@ spec:
           name: client
         - containerPort: 16379
           name: gossip
-        command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
+        command: ["redis-server", "/conf/redis.conf"]
+        args: ["--protected-mode", "no"]
         readinessProbe:
           exec:
             command:
