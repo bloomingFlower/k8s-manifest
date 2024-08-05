@@ -49,6 +49,29 @@ spec:
                   values:
                   - blog-redis-cluster
               topologyKey: kubernetes.io/hostname
+      initContainers:
+      - name: init-redis-cluster
+        image: redis:latest
+        command:
+        - sh
+        - -c
+        - |
+          echo "Waiting for redis nodes to be ready..."
+          until redis-cli -h blog-redis-cluster-0.blog-redis-cluster -a $REDIS_PASSWORD ping; do sleep 1; done
+          until redis-cli -h blog-redis-cluster-1.blog-redis-cluster -a $REDIS_PASSWORD ping; do sleep 1; done
+          echo "Creating Redis cluster..."
+          redis-cli --cluster create \
+            blog-redis-cluster-0.blog-redis-cluster:6379 \
+            blog-redis-cluster-1.blog-redis-cluster:6379 \
+            --cluster-replicas 0 \
+            --cluster-yes \
+            -a $REDIS_PASSWORD
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: redis-password
       containers:
       - name: redis
         image: redis:latest
